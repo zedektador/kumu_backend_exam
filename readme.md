@@ -48,27 +48,27 @@ exam
 
 <?php
 	
-	function calculate($x, $y) {
-	  $distance =0;
-	  $binX = decbin($x);
-	  $binY = decbin($y);
-	  $splittedX =str_split($binX);
-	  $splittedY =str_split($binY);
-	  $countX = count($splittedX);
-	  $countY = count(str_split(decbin($y)));
-	  if($countY > $countX) {
-      $binX = str_repeat(0, ($countY- $countX)).$binX;
-      $countX = count(str_split($binX));
-	    $splittedX =str_split($binX);
-	  } else if ($countY < $countX){
-	    $binY = str_repeat(0, ($countX- $countY)).$binY;
-	    $splittedY =str_split($binY);
-	  }
-	  for ($i = 0; $i <$countX; $i++) {
-	    if($splittedX[$i] != $splittedY[$i]) $distance++;
-	  }
-	  return $distance;
-	}
-  echo calculate(1,4);
+function calculate($x, $y) {
+    $distance =0;
+    $binX = decbin($x);
+    $binY = decbin($y);
+    $splittedX =str_split($binX);
+    $splittedY =str_split($binY);
+    $countX = count($splittedX);
+    $countY = count(str_split(decbin($y)));
+    if($countY > $countX) {
+        $binX = str_repeat(0, ($countY- $countX)).$binX;
+        $countX = count(str_split($binX));
+        $splittedX =str_split($binX);
+    } else if ($countY < $countX){
+        $binY = str_repeat(0, ($countX- $countY)).$binY;
+        $splittedY =str_split($binY);
+    }
+    for ($i = 0; $i <$countX; $i++) {
+        if($splittedX[$i] != $splittedY[$i]) $distance++;
+    }
+    return $distance;
+}
+echo calculate(1,4);
 ?>
 ``` 
