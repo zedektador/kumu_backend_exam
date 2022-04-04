@@ -1,0 +1,47 @@
+version: '3'
+services:
+  api:
+    container_name: exam_api
+    build:
+      context: ./
+      dockerfile: ./infrastructure/dev/Dockerfile
+    image: examapi:latest
+    ports:
+      - "8080:80"
+    expose:
+      - '80'
+    volumes:
+      - ./:/var/www/html
+    environment:
+      - PHP_OPCACHE_VALIDATE_TIMESTAMPS=1
+    depends_on:
+      - database
+      - redis
+    env_file:
+      - .env
+
+  redis:
+    container_name: customer-redis
+    image: redis:4-alpine
+    ports:
+      - 6391:6379
+    volumes:
+      - redis:/data
+
+  database:
+    container_name: exam_db
+    image: mysql:5.7.19
+    restart: always
+    environment:
+      - MYSQL_DATABASE=exam
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=exampass
+      - MYSQL_ROOT_PASSWORD=examsecret
+    ports:
+      - '3306'
+    expose:
+      - '3306'
+
+volumes:
+  redis:
+    driver: "local"
